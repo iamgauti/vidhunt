@@ -1,1 +1,2 @@
-# vidhunt
+# image-search
+Search images
