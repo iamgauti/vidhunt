@@ -5,7 +5,7 @@ import VideoList from './VideoList';
 import VideoDetail from './VideoDetail';
 
 const KEY = "AIzaSyC5vRXolPcccaMx6qX2BUOMAhyES0XMBHU";
-
+let allvideo=[];
 class App extends React.Component{
     state={ videos:[], selectedVideo:null };
 
@@ -19,11 +19,18 @@ class App extends React.Component{
             key: KEY
           }
         });
-        this.setState({videos: response.data.items, selectedVideo:response.data.items[0]});
+        allvideo=response.data.items;
+        this.setState({videos: response.data.items.slice(1), selectedVideo:response.data.items[0]});
     }
 
     onVideoSelect = (video) => {
-        this.setState({selectedVideo : video});
+        const videolist=[];
+        for(let i=0;i<allvideo.length;i++)
+        {
+            if(allvideo[i]!=video)
+                videolist.push(allvideo[i]);
+        }
+        this.setState({selectedVideo : video, videos:videolist});
     }
 
     render(){
